@@ -7,40 +7,38 @@ output:
 
 
 ## Loading and preprocessing the data
-### download file, storing in temporary zip file
+download file, storing in temporary zip file  
 download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip",
               "temp.zip")
-### unzip files from temporary zip file
+unzip files from temporary zip file  
 unzip("temp.zip")
 
-### read the only csv file listed, store as DF
+read the only csv file listed, store as DF  
 DF <- read.csv(list.files(pattern="csv"))
 
 ## What is mean total number of steps taken per day?
-### for each date in DF, add all steps. Store result as dailySum
+for each date in DF, add all steps. Store result as dailySum  
 dailySum <- aggregate(formula = steps~date, 
                       FUN = sum, 
                       data = DF)
-### create histogram of steps per day
+create histogram of steps per day  
 hist(dailySum$steps, xlab = "steps per day", main = "Histogram of steps per day")
 
-
-
 ## What is the average daily activity pattern?
-### for each interval in DF, calculate the mean of all steps. Store result as stepInterval.
+for each interval in DF, calculate the mean of all steps. Store result as stepInterval.  
 stepInterval <- aggregate(formula = steps~interval, 
                           FUN = mean, 
                           data = DF)
-### plot average steps as a function of interval
+plot average steps as a function of interval  
 plot(steps~interval, data=stepInterval,type="l")
-### print the interval with the maximum mean of steps
+print the interval with the maximum mean of steps  
 stepInterval[which.max(stepInterval$steps),"interval"]
-### [1] 835
+ [1] 835  
 
 ## Imputing missing values
-### total number of missing values in the dataset
-sum(is.na(DF$steps))
-### [1] 2304
+ total number of missing values in the dataset  
+sum(is.na(DF$steps)
+ [1] 2304
 
 newDF <- DF
 naVec <- is.na(newDF$steps)
@@ -48,8 +46,8 @@ newDF[naVec,"steps"] <- mean(newDF[,"steps"],na.rm=T)
 
 dailySum <- aggregate(steps~date,data=newDF,sum)
 hist(dailySum[,"steps"])
-mean(totalSteps2$steps)
-median(totalSteps2$steps)
+mean(totalSteps2$steps)  
+median(totalSteps2$steps)  
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
