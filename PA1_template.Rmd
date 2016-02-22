@@ -8,41 +8,55 @@ output:
 
 ## Loading and preprocessing the data
 download file, storing in temporary zip file  
- ```{r}download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip",
-              "temp.zip") ```  
+```{r}
+download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip",
+              "temp.zip") 
+```  
+
 unzip files from temporary zip file  
-```{r} unzip("temp.zip") ```  
+```{r} 
+unzip("temp.zip") 
+```  
 
 read the only csv file listed, store as DF  
-```{r} DF <- read.csv(list.files(pattern="csv"))```  
+```{r} 
+DF <- read.csv(list.files(pattern="csv"))
+```  
 
 ## What is mean total number of steps taken per day?  
 for each date in DF, add all steps. Store result as dailySum  
-```{r} dailySum <- aggregate(formula = steps~date, 
+```{r} 
+dailySum <- aggregate(formula = steps~date, 
                               FUN = sum, 
-                              data = DF)```
+                              data = DF)
+```
 create histogram of steps per day  
-```{r} hist(dailySum$steps, xlab = "steps per day", main = "Histogram of steps per day")```
+```{r} 
+hist(dailySum$steps, xlab = "steps per day", main = "Histogram of steps per day")
+```
 
 ## What is the average daily activity pattern?  
 for each interval in DF, calculate the mean of all steps. Store result as stepInterval.  
-```{r} stepInterval <- aggregate(formula = steps~interval, 
+```{r} 
+stepInterval <- aggregate(formula = steps~interval, 
                                   FUN = mean, 
-                                  data = DF)```
+                                  data = DF)
+```
 plot average steps as a function of interval  
+
+```{r}
 plot(steps~interval, data=stepInterval,type="l")  
+```
 print the interval with the maximum mean of steps  
 ```{r} 
 stepInterval[which.max(stepInterval$steps),"interval"]
 ```  
-```
 [1] 835
 ```  
 ## Imputing missing values  
 total number of missing values in the dataset  
 ```{r} 
 sum(is.na(DF$steps)
-    ```  
 ```
 [1] 2304
 ```  
