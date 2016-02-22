@@ -9,7 +9,7 @@ output:
 ## Loading and preprocessing the data
 download file, storing in temporary zip file  
  ```{r}download.file("https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip",
-              "temp.zip") ```
+              "temp.zip") ```  
 unzip files from temporary zip file  
 unzip("temp.zip")
 
